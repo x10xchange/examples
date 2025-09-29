@@ -4,7 +4,7 @@ import { type StarknetDomain } from '../api/starknet.schema.ts'
 import { type OrderSide } from '../models/types.ts'
 import { calcStarknetExpiration } from './calc-starknet-expiration.ts'
 import { fromHexString, toHexString, type HexString } from './hex.ts'
-import { Decimal, Long } from './number.ts'
+import { type Decimal, type Long } from './number.ts'
 
 type GetStarknetOrderMsgHashArgs = {
   side: OrderSide

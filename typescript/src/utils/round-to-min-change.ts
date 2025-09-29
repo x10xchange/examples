@@ -1,4 +1,4 @@
-import { Decimal, type RoundingMode } from './number.ts'
+import { type Decimal, type RoundingMode } from './number.ts'
 
 export const roundToMinChange = (
   value: Decimal,

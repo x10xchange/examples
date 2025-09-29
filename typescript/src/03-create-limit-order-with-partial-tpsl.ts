@@ -5,7 +5,7 @@ import { placeOrder } from './api/order.ts'
 import { getStarknetDomain } from './api/starknet.ts'
 import { config } from './config.ts'
 import { Order } from './models/order.ts'
-import { createOrderContext } from './utils/create-order-context.js'
+import { createOrderContext } from './utils/create-order-context.ts'
 import { Decimal } from './utils/number.ts'
 import { roundToMinChange } from './utils/round-to-min-change.ts'
 import { initWasm } from './utils/wasm.ts'
@@ -31,11 +31,11 @@ const runExample = async () => {
   }
 
   const orderSize = market.tradingConfig.minOrderSize
-  const bidPrice = market.marketStats.bidPrice
-  const tpTriggerPrice = bidPrice.times(1.01)
-  const tpPrice = bidPrice.times(1.015)
-  const slTriggerPrice = bidPrice.times(0.99)
-  const slPrice = bidPrice.times(0.985)
+  const orderPrice = market.marketStats.bidPrice.times(0.9)
+  const tpTriggerPrice = orderPrice.times(1.005)
+  const tpPrice = orderPrice.times(1.01)
+  const slTriggerPrice = orderPrice.times(0.995)
+  const slPrice = orderPrice.times(0.99)
 
   const ctx = createOrderContext({
     market,
@@ -44,20 +44,19 @@ const runExample = async () => {
     vaultId: config.vaultId,
     starkPrivateKey: config.starkPrivateKey,
   })
-  // Assuming you have LONG ETH-USD position with a size >= `minOrderSize`
   const order = Order.create({
     marketName: MARKET_NAME,
-    orderType: 'TPSL',
-    side: 'SELL',
+    orderType: 'LIMIT',
+    side: 'BUY',
     amountOfSynthetic: roundToMinChange(
       orderSize,
       market.tradingConfig.minOrderSizeChange,
       Decimal.ROUND_DOWN,
     ),
-    price: Decimal(0), // Ignored for TPSL orders
+    price: roundPrice(orderPrice),
     timeInForce: 'GTT',
-    reduceOnly: true,
-    postOnly: false,
+    reduceOnly: false,
+    postOnly: true,
     tpSlType: 'ORDER',
     takeProfit: {
       triggerPrice: roundPrice(tpTriggerPrice),

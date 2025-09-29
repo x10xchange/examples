@@ -3,7 +3,7 @@ import { afterAll, beforeAll, expect, test, vi } from 'vitest'
 import * as generateNonceModule from '../utils/generate-nonce.ts'
 import { Decimal, Long } from '../utils/number.ts'
 import { Order } from './order.ts'
-import { OrderContext } from './types.ts'
+import { type OrderContext } from './types.ts'
 
 const CTX: OrderContext = {
   assetIdCollateral: Decimal(
@@ -35,20 +35,33 @@ afterAll(() => {
   vi.useRealTimers()
 })
 
-test('creates `LIMIT / BUY` order correctly', () => {
+test('creates `LIMIT / SELL` order correctly', () => {
   // given
   vi.spyOn(generateNonceModule, 'generateNonce').mockReturnValue(1473459052)
 
   const order = Order.create({
     marketName: 'BTC-USD',
     orderType: 'LIMIT',
-    side: 'BUY',
+    side: 'SELL',
     amountOfSynthetic: Decimal('0.001'),
-    price: Decimal('43445.1168'),
+    price: Decimal('43445.11680000'),
     timeInForce: 'GTT',
     expiryTime: undefined,
     reduceOnly: false,
     postOnly: false,
+    tpSlType: 'ORDER',
+    takeProfit: {
+      triggerPrice: Decimal('49000'),
+      triggerPriceType: 'MARK',
+      price: Decimal('50000'),
+      priceType: 'LIMIT',
+    },
+    stopLoss: {
+      triggerPrice: Decimal('40000'),
+      triggerPriceType: 'MARK',
+      price: Decimal('39000'),
+      priceType: 'LIMIT',
+    },
     ctx: CTX,
   })
 
@@ -56,13 +69,13 @@ test('creates `LIMIT / BUY` order correctly', () => {
   expect(order.toJSON()).toMatchInlineSnapshot(`
     {
       "debuggingAmounts": {
-        "collateralAmount": "43445117",
+        "collateralAmount": "43445116",
         "feeAmount": "8690",
         "syntheticAmount": "10000000",
       },
       "expiryEpochMillis": 1712192936860,
       "fee": "0.0002",
-      "id": "119182652942028501981508889931571960493412447256454049664487964380256611929",
+      "id": "887609576971188750285981806834787874541901297269844521933450115307657382405",
       "market": "BTC-USD",
       "nonce": "1473459052",
       "postOnly": false,
@@ -72,13 +85,52 @@ test('creates `LIMIT / BUY` order correctly', () => {
       "settlement": {
         "collateralPosition": "10002",
         "signature": {
-          "r": "0x3ba56549ade7c0ca7a95d7378b65392dfc456deaba4664ee8a35ed068b47855",
-          "s": "0x188d68626cbe9262cfe20f2537c4b66994868ccf2271aeef4b3a51ab613afbb",
+          "r": "0x3456be79ae552946ff1aac0ca3bc54ef7adab9bfc59808fdf9c8468ea0e3067",
+          "s": "0x31a677280ad51b3f78c3b75ab3f002da4dd48a6802c8251e9795cda51e504c2",
         },
         "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
       },
-      "side": "BUY",
+      "side": "SELL",
+      "stopLoss": {
+        "debuggingAmounts": {
+          "collateralAmount": "39000000",
+          "feeAmount": "7800",
+          "syntheticAmount": "10000000",
+        },
+        "price": "39000",
+        "priceType": "LIMIT",
+        "settlement": {
+          "collateralPosition": "10002",
+          "signature": {
+            "r": "0x71b17ceae23dc1c6937ee79dd4ec7caf551a43b095eb11277201d8ca314f9c9",
+            "s": "0x74d7259cc58b8e7c95e6339d6c90081f0ef548954106db32100e929139b589f",
+          },
+          "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
+        },
+        "triggerPrice": "40000",
+        "triggerPriceType": "MARK",
+      },
+      "takeProfit": {
+        "debuggingAmounts": {
+          "collateralAmount": "50000000",
+          "feeAmount": "10000",
+          "syntheticAmount": "10000000",
+        },
+        "price": "50000",
+        "priceType": "LIMIT",
+        "settlement": {
+          "collateralPosition": "10002",
+          "signature": {
+            "r": "0xc7bcfbcb9a37159379f278b1612cf6cb7fa23899a01ac70dbc8dc15c2dd564",
+            "s": "0x1509082ab7b37f4f0d862b5f2a0c1f12bda8b691808008d5deb08bfa201a815",
+          },
+          "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
+        },
+        "triggerPrice": "49000",
+        "triggerPriceType": "MARK",
+      },
       "timeInForce": "GTT",
+      "tpSlType": "ORDER",
       "type": "LIMIT",
     }
   `)

@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "example:01-create-limit-order": "node ./src/01-create-limit-order.ts",
-    "format": "prettier --config .prettierrc.mjs --write \"*.ts\" \"src/**/*.ts\"",
+    "example:02-create-market-order": "node ./src/02-create-market-order.ts",
+    "example:03-create-limit-order-with-partial-tpsl": "node ./src/03-create-limit-order-with-partial-tpsl.ts",
+    "example:04-create-partial-tpsl-order": "node ./src/04-create-partial-tpsl-order.ts",
+    "format": "prettier --config .prettierrc.mjs --write \"*.{js,ts}\" \"src/**/*.ts\"",
     "typecheck": "tsc",
     "lint": "eslint .",
     "test": "vitest"

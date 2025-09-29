@@ -10,7 +10,7 @@ import { getOppositeOrderSide } from '../utils/side.ts'
 import { signMessage } from '../utils/sign-message.ts'
 import { OrderDebuggingAmounts } from './order-debugging-amounts.ts'
 import { OrderSettlement } from './order-settlement.ts'
-import { OrderTpSlTrigger, OrderTpSlTriggerParam } from './order-tp-sl-trigger.ts'
+import { OrderTpSlTrigger, type OrderTpSlTriggerParam } from './order-tp-sl-trigger.ts'
 import {
   type OrderContext,
   type OrderSide,

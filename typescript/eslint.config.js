@@ -6,12 +6,18 @@ export default tseslint.config([
   // globalIgnores([]),
   {
     files: ['src/**/*.ts'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-    ],
+    extends: [js.configs.recommended, tseslint.configs.recommended],
     languageOptions: {
-      ecmaVersion: 'latest'
+      ecmaVersion: 'latest',
+    },
+    rules: {
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'inline-type-imports',
+        },
+      ],
     },
   },
 ])

@@ -1,7 +1,11 @@
-import { Decimal, type Long } from '../utils/number.ts'
-import { OrderDebuggingAmounts } from './order-debugging-amounts.ts'
+import { type Decimal, type Long } from '../utils/number.ts'
+import { type OrderDebuggingAmounts } from './order-debugging-amounts.ts'
 import { OrderSettlement } from './order-settlement.ts'
-import { OrderPriceType, OrderTriggerPriceType, SettlementSignature } from './types.ts'
+import {
+  type OrderPriceType,
+  type OrderTriggerPriceType,
+  type SettlementSignature,
+} from './types.ts'
 
 export type OrderTpSlTriggerParam = {
   triggerPrice: Decimal

@@ -1,5 +1,5 @@
 import { toHexString } from '../utils/hex.ts'
-import { Long } from '../utils/number.ts'
+import { type Long } from '../utils/number.ts'
 import { type SettlementSignature } from './types.ts'
 
 export class OrderSettlement {
