@@ -1,23 +1,18 @@
-import { setApiKey, setHost } from './api/axios.ts'
 import { getFees } from './api/fees.ts'
 import { getMarket } from './api/markets.ts'
 import { placeOrder } from './api/order.ts'
 import { getStarknetDomain } from './api/starknet.ts'
-import { config } from './config.ts'
+import { init } from './init.ts'
 import { Order } from './models/order.ts'
 import { createOrderContext } from './utils/create-order-context.ts'
 import { Decimal } from './utils/number.ts'
 import { roundToMinChange } from './utils/round-to-min-change.ts'
-import { initWasm } from './utils/wasm.ts'
 
 const MARKET_NAME = 'ETH-USD'
 const SLIPPAGE = 0.0075
 
 const runExample = async () => {
-  await initWasm()
-
-  setHost(config.host)
-  setApiKey(config.apiKey)
+  const { starkPrivateKey, vaultId } = await init()
 
   const market = await getMarket(MARKET_NAME)
   const fees = await getFees(MARKET_NAME)
@@ -30,8 +25,8 @@ const runExample = async () => {
     market,
     fees,
     starknetDomain,
-    vaultId: config.vaultId,
-    starkPrivateKey: config.starkPrivateKey,
+    vaultId,
+    starkPrivateKey,
   })
   const order = Order.create({
     marketName: MARKET_NAME,

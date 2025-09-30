@@ -20,6 +20,23 @@ export const axiosClient = axios.create({
   },
 })
 
+axiosClient.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject({
+        url: error.response.config.url,
+        status: error.response.status,
+        data: error.response.data,
+      })
+    }
+
+    return Promise.reject(error)
+  },
+)
+
 axiosClient.defaults.transformResponse = [safeParseResponse]
 
 export const setHost = (baseUrl: string) => {
