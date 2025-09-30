@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 
-import { zodDecimal, zodHexString, zodLong } from '../utils/zod.ts'
+import { zodDecimal, zodHexString } from '../utils/zod.ts'
 
 export const MarketStatsSchema = z.object({
   lastPrice: zodDecimal(),

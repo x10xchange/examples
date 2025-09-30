@@ -22,7 +22,6 @@ export const createOrderContext = ({
   settlementResolutionCollateral: Decimal(market.l2Config.collateralResolution),
   settlementResolutionSynthetic: Decimal(market.l2Config.syntheticResolution),
   minOrderSizeChange: market.tradingConfig.minOrderSizeChange,
-  maxPositionValue: market.tradingConfig.maxPositionValue,
   feeRate: Decimal.max(fees.makerFeeRate, fees.takerFeeRate),
   vaultId: Long(vaultId),
   starkPrivateKey,

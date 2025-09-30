@@ -13,7 +13,6 @@ const CTX: OrderContext = {
   settlementResolutionCollateral: Decimal('1000000'),
   settlementResolutionSynthetic: Decimal('10000000000'),
   minOrderSizeChange: Decimal('0.0001'),
-  maxPositionValue: Decimal('10000000'),
   feeRate: Decimal('2').div(Decimal('10000')),
   vaultId: Long(10002),
   starkPrivateKey: '0x659127796b268530385f753efee81112c628b2bf266e025d3b52d16204c5504',

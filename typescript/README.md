@@ -1,14 +1,15 @@
 # Extended TypeScript examples
 
-Update `./src/config.ts` file with your data:
-```typescript
-export const config = {
-  // Replace with `api.starknet.sepolia.extended.exchange` for TESTNET
-  host: 'api.starknet.extended.exchange',
-  apiKey: '{YOUR_API_KEY}',
-  starkPrivateKey: '0x{YOUR_STARK_PRIVATE_KEY}',
-  vaultId: '{YOUR_VAULT_ID}',
-} as const
+Prerequisites:
+- Node.js v22.18.0+
+
+Create `.env.local` file from `.env.example` and fill in your data:
+```properties
+# Replace with `api.starknet.sepolia.extended.exchange` for TESTNET
+API_HOST=api.starknet.extended.exchange
+API_KEY=<YOUR_API_KEY>
+STARK_PRIVATE_KEY=<YOUR_STARK_PRIVATE_KEY>
+VAULT_ID=<YOUR_VAULT_ID>
 ```
 
 You can get it from:

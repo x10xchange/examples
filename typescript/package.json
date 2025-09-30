@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
   "scripts": {
     "example:01-create-limit-order": "node ./src/01-create-limit-order.ts",
     "example:02-create-market-order": "node ./src/02-create-market-order.ts",
@@ -18,6 +21,7 @@
     "axios": "1.12.2",
     "bignumber.js": "9.3.1",
     "date-fns": "4.1.0",
+    "dotenv": "17.2.3",
     "json-custom-numbers": "3.1.1",
     "lodash-es": "4.17.21",
     "starknet": "8.5.4",
