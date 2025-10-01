@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 rust-crypto-lib-base = { version = "0.1.0", path = "./rust-crypto-lib-base" }
+starknet = { git = "https://github.com/xJonathanLEI/starknet-rs", tag = "starknet/v0.17.0" }

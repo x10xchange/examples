@@ -1,4 +1,4 @@
-use starknet_crypto::Felt;
+use starknet::core::types::Felt;
 use rust_crypto_lib_base::StarkSignature;
 
 fn main() {
