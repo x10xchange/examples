@@ -1,7 +1,7 @@
 import { beforeAll } from 'vitest'
 
-import { initWasm } from './src/utils/wasm.ts'
+import { tryInitWasm } from './src/utils/wasm.ts'
 
 beforeAll(async () => {
-  await initWasm()
+  await tryInitWasm()
 })

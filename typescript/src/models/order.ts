@@ -1,13 +1,13 @@
-import { addDays } from 'date-fns'
+import { addHours } from 'date-fns'
 
 import { generateNonce } from '../utils/generate-nonce.ts'
-import { getStarknetOrderMsgHash } from '../utils/get-order-msg-hash.ts'
-import { getStarkPublicKey } from '../utils/get-stark-public-key.ts'
 import { toHexString } from '../utils/hex.ts'
 import { Decimal, Long } from '../utils/number.ts'
 import { omitUndefined } from '../utils/omit-undefined.ts'
 import { getOppositeOrderSide } from '../utils/side.ts'
-import { signMessage } from '../utils/sign-message.ts'
+import { getStarknetOrderMsgHash } from '../utils/signing/get-order-msg-hash.ts'
+import { getStarkPublicKey } from '../utils/signing/get-stark-public-key.ts'
+import { signMessage } from '../utils/signing/sign-message.ts'
 import { OrderDebuggingAmounts } from './order-debugging-amounts.ts'
 import { OrderSettlement } from './order-settlement.ts'
 import { OrderTpSlTrigger, type OrderTpSlTriggerParam } from './order-tp-sl-trigger.ts'
@@ -19,7 +19,7 @@ import {
   type OrderType,
 } from './types.ts'
 
-const ORDER_EXPIRATION_DAYS = 90
+const ORDER_EXPIRATION_HOURS = 1
 const ROUNDING_MODE_SELL = Decimal.ROUND_DOWN
 const ROUNDING_MODE_BUY = Decimal.ROUND_UP
 const ROUNDING_MODE_FEE = Decimal.ROUND_UP
@@ -162,7 +162,7 @@ export class Order {
 
     const nonce = Long(generateNonce())
     const expiryEpochMillis = (
-      expiryTime ?? addDays(new Date(), ORDER_EXPIRATION_DAYS)
+      expiryTime ?? addHours(new Date(), ORDER_EXPIRATION_HOURS)
     ).getTime()
     const createOrderParamsArgs = {
       side,
