@@ -5,5 +5,6 @@ export default defineConfig({
     environment: 'node',
     setupFiles: ['vitest.setup.ts'],
     globalSetup: ['vitest.global.ts'],
+    disableConsoleIntercept: true,
   },
 })

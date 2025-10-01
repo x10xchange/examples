@@ -3,10 +3,10 @@ import dotenv from 'dotenv'
 import { setApiKey, setHost } from './api/axios.ts'
 import { isHexString } from './utils/hex.ts'
 import { invariant } from './utils/invariant.ts'
-import { initWasm } from './utils/wasm.ts'
+import { tryInitWasm } from './utils/wasm.ts'
 
 export const init = async () => {
-  await initWasm()
+  await tryInitWasm()
 
   dotenv.config({ path: ['.env.local'] })
 

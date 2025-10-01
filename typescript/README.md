@@ -22,3 +22,7 @@ Run an example, e.g. `npm run example:01-create-limit-order`.
 
 > [!WARNING]
 > DON'T FORGET TO CANCEL YOUR POSITIONS/ORDERS IF YOU ARE USING MAINNET!
+
+WASM module source code (Rust) can be found in the following repos:
+- https://github.com/x10xchange/stark-crypto-wrapper-js
+- https://github.com/x10xchange/rust-crypto-lib-base
