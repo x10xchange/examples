@@ -1,10 +1,10 @@
-import { StarknetDomain } from '../api/starknet.schema.ts'
-import { HexString } from '../utils/hex.ts'
-import { Long } from '../utils/number.ts'
+import { type StarknetDomain } from '../api/starknet.schema.ts'
+import { type HexString } from '../utils/hex.ts'
+import { type Long } from '../utils/number.ts'
 import { calcStarknetExpiration } from '../utils/signing/calc-starknet-expiration.ts'
 import { getStarknetTransferMsgHash } from '../utils/signing/get-transfer-msg-hash.ts'
 import { signMessage } from '../utils/signing/sign-message.ts'
-import { SettlementSignature } from './transfer.types.ts'
+import { type SettlementSignature } from './transfer.types.ts'
 
 export class TransferSettlement {
   private readonly amount: Long

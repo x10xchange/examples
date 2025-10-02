@@ -1,4 +1,4 @@
-import { Transfer } from '../models/transfer.ts'
+import { type Transfer } from '../models/transfer.ts'
 import { axiosClient } from './axios.ts'
 import { TransferResponseSchema } from './transfer.schema.ts'
 
