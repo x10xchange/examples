@@ -5,7 +5,7 @@ import {
   type OrderPriceType,
   type OrderTriggerPriceType,
   type SettlementSignature,
-} from './types.ts'
+} from './order.types.ts'
 
 export type OrderTpSlTriggerParam = {
   triggerPrice: Decimal

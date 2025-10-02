@@ -17,7 +17,7 @@ import {
   type OrderTimeInForce,
   type OrderTpSlType,
   type OrderType,
-} from './types.ts'
+} from './order.types.ts'
 
 const ORDER_EXPIRATION_HOURS = 1
 const ROUNDING_MODE_SELL = Decimal.ROUND_DOWN

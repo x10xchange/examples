@@ -3,7 +3,7 @@ import { afterAll, beforeAll, expect, test, vi } from 'vitest'
 import * as generateNonceModule from '../utils/generate-nonce.ts'
 import { Decimal, Long } from '../utils/number.ts'
 import { Order } from './order.ts'
-import { type OrderContext } from './types.ts'
+import { type OrderContext } from './order.types.ts'
 
 const CTX: OrderContext = {
   assetIdCollateral: Decimal(
