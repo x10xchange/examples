@@ -1,84 +1,11 @@
 import { get_order_msg as wasmLibGetOrderMsgHash } from '@x10xchange/stark-crypto-wrapper-wasm'
-import {
-  hash as starkHash,
-  selector as starkSelector,
-  shortString as starkShortString,
-} from 'starknet'
 
 import { type StarknetDomain } from '../../api/starknet.schema.ts'
 import { type OrderSide } from '../../models/types.ts'
 import { fromHexString, toHexString, type HexString } from '../hex.ts'
 import { type Decimal, type Long } from '../number.ts'
 import { calcStarknetExpiration } from './calc-starknet-expiration.ts'
-
-const jsGetStarknetDomainObjHash = (domain: StarknetDomain) => {
-  const selector = starkSelector.getSelector(
-    '"StarknetDomain"("name":"shortstring","version":"shortstring","chainId":"shortstring","revision":"shortstring")',
-  )
-
-  return starkHash.computePoseidonHashOnElements([
-    selector,
-    starkShortString.encodeShortString(domain.name),
-    starkShortString.encodeShortString(domain.version),
-    starkShortString.encodeShortString(domain.chainId),
-    domain.revision,
-  ])
-}
-
-const jsGetObjMsgHash = (domainHash: string, publicKey: string, objHash: string) => {
-  const messageFelt = starkShortString.encodeShortString('StarkNet Message')
-
-  return starkHash.computePoseidonHashOnElements([
-    messageFelt,
-    domainHash,
-    publicKey,
-    objHash,
-  ])
-}
-
-const jsGetOrderMsgHash = (...args: Parameters<typeof wasmLibGetOrderMsgHash>) => {
-  const [
-    positionId,
-    baseAssetIdHex,
-    baseAmount,
-    quoteAssetIdHex,
-    quoteAmount,
-    feeAssetIdHex,
-    feeAmount,
-    expiration,
-    salt,
-    userPublicKeyHex,
-    domainName,
-    domainVersion,
-    domainChainId,
-    domainRevision,
-  ] = args
-
-  const domainHash = jsGetStarknetDomainObjHash({
-    name: domainName,
-    version: domainVersion,
-    chainId: domainChainId,
-    revision: parseInt(domainRevision),
-  })
-
-  const orderSelector = starkSelector.getSelector(
-    '"Order"("position_id":"felt","base_asset_id":"AssetId","base_amount":"i64","quote_asset_id":"AssetId","quote_amount":"i64","fee_asset_id":"AssetId","fee_amount":"u64","expiration":"Timestamp","salt":"felt")"PositionId"("value":"u32")"AssetId"("value":"felt")"Timestamp"("seconds":"u64")',
-  )
-  const orderHash = starkHash.computePoseidonHashOnElements([
-    orderSelector,
-    positionId,
-    baseAssetIdHex,
-    baseAmount,
-    quoteAssetIdHex,
-    quoteAmount,
-    feeAssetIdHex,
-    feeAmount,
-    expiration,
-    salt,
-  ])
-
-  return jsGetObjMsgHash(domainHash, userPublicKeyHex, orderHash)
-}
+import { jsGetOrderMsgHash } from './js/js-get-order-msg-hash.ts'
 
 type GetStarknetOrderMsgHashArgs = {
   side: OrderSide

@@ -72,9 +72,9 @@ test('creates `LIMIT / SELL` order correctly', () => {
         "feeAmount": "8690",
         "syntheticAmount": "10000000",
       },
-      "expiryEpochMillis": 1712192936860,
+      "expiryEpochMillis": 1704420536860,
       "fee": "0.0002",
-      "id": "887609576971188750285981806834787874541901297269844521933450115307657382405",
+      "id": "2383967786097470112596663671073451242363987635819842372002434200436463917248",
       "market": "BTC-USD",
       "nonce": "1473459052",
       "postOnly": false,
@@ -84,8 +84,8 @@ test('creates `LIMIT / SELL` order correctly', () => {
       "settlement": {
         "collateralPosition": "10002",
         "signature": {
-          "r": "0x3456be79ae552946ff1aac0ca3bc54ef7adab9bfc59808fdf9c8468ea0e3067",
-          "s": "0x31a677280ad51b3f78c3b75ab3f002da4dd48a6802c8251e9795cda51e504c2",
+          "r": "0x56b2fb685cc7feab021b54bc6a78521d76fb192faf6b12baa14ca1427b1b364",
+          "s": "0x282fbd86bbe48e02bffe3689a50985965287044937035dc7918f7dc9f0a6e74",
         },
         "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
       },
@@ -101,8 +101,8 @@ test('creates `LIMIT / SELL` order correctly', () => {
         "settlement": {
           "collateralPosition": "10002",
           "signature": {
-            "r": "0x71b17ceae23dc1c6937ee79dd4ec7caf551a43b095eb11277201d8ca314f9c9",
-            "s": "0x74d7259cc58b8e7c95e6339d6c90081f0ef548954106db32100e929139b589f",
+            "r": "0xb7603795727782806eaeddf0dbe1785346615e210bbf0316e78c556a10180a",
+            "s": "0x21d804a1e44f98813354d493eb3c0990d562c536a6ac44bfbff3bc1870035c6",
           },
           "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
         },
@@ -120,8 +120,8 @@ test('creates `LIMIT / SELL` order correctly', () => {
         "settlement": {
           "collateralPosition": "10002",
           "signature": {
-            "r": "0xc7bcfbcb9a37159379f278b1612cf6cb7fa23899a01ac70dbc8dc15c2dd564",
-            "s": "0x1509082ab7b37f4f0d862b5f2a0c1f12bda8b691808008d5deb08bfa201a815",
+            "r": "0x537060ce048e033ff2bc686c408c37296c134782140c287c14ad4ec8ca20e66",
+            "s": "0x3621e7f65eb14492d0343d3c40127bee870901a51ba4f12ce264d392da42f28",
           },
           "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
         },
