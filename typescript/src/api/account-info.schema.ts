@@ -9,6 +9,7 @@ export const AccountInfoSchema = z.object({
   status: z.string(),
   l2Key: zodHexString(),
   l2Vault: zodLong(),
+  apiKeys: z.string().array(),
 })
 
 export const AccountsInfoResponseSchema = z.object({ data: AccountInfoSchema.array() })

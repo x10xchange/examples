@@ -23,6 +23,7 @@ export const init = async () => {
   setApiKey(process.env.API_KEY)
 
   return {
+    apiKey: process.env.API_KEY,
     starkPrivateKey: process.env.STARK_PRIVATE_KEY,
     vaultId: process.env.VAULT_ID,
   }

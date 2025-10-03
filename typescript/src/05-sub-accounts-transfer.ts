@@ -6,20 +6,40 @@ import { init } from './init.ts'
 import { Transfer } from './models/transfer.ts'
 import type { TransferContext } from './models/transfer.types.ts'
 import { checkRequired } from './utils/check-required.ts'
+import { getAccountById } from './utils/get-account-by-id.js'
 import { invariant } from './utils/invariant.ts'
 import { Decimal } from './utils/number.ts'
 
 const runExample = async () => {
-  const { starkPrivateKey } = await init()
+  const { apiKey, starkPrivateKey } = await init()
 
   const assets = await getAssets({ assetsNames: ['USD'], isCollateral: true })
   const accounts = await getAccounts()
   const starknetDomain = await getStarknetDomain()
 
+  const fromAccountId = accounts[0].accountId
+  const toAccountId = accounts[1].accountId
   const amount = Decimal(1)
   const usdAsset = checkRequired(assets[0], 'USD asset')
 
   invariant(accounts.length > 1, 'Should be at least 2 accounts to run this example')
+
+  // Both accounts must belong to the same client (wallet)
+  const fromAccount = getAccountById(accounts, fromAccountId)
+  const toAccount = getAccountById(accounts, toAccountId)
+
+  invariant(
+    fromAccount.apiKeys.includes(apiKey),
+    'API key is not valid for the from account',
+  )
+
+  console.log(
+    'Transferring %s%s from account %s to account %s',
+    amount.toString(),
+    usdAsset.symbol,
+    fromAccount.description,
+    toAccount.description,
+  )
 
   const ctx: TransferContext = {
     accounts,
@@ -29,8 +49,8 @@ const runExample = async () => {
     starknetDomain,
   }
   const transferObject = Transfer.create({
-    fromAccountId: accounts[0].accountId,
-    toAccountId: accounts[1].accountId,
+    fromAccountId: fromAccount.accountId,
+    toAccountId: toAccount.accountId,
     amount,
     transferredAsset: 'USD',
     ctx,
