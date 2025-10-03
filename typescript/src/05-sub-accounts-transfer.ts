@@ -6,7 +6,7 @@ import { init } from './init.ts'
 import { Transfer } from './models/transfer.ts'
 import type { TransferContext } from './models/transfer.types.ts'
 import { checkRequired } from './utils/check-required.ts'
-import { getAccountById } from './utils/get-account-by-id.js'
+import { getAccountById } from './utils/get-account-by-id.ts'
 import { invariant } from './utils/invariant.ts'
 import { Decimal } from './utils/number.ts'
 
