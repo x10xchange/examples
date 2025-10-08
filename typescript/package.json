@@ -24,7 +24,6 @@
     "date-fns": "4.1.0",
     "dotenv": "17.2.3",
     "json-custom-numbers": "3.1.1",
-    "lodash-es": "4.17.21",
     "starknet": "8.5.4",
     "zod": "4.1.11"
   },
