@@ -69,7 +69,7 @@ const runExample = async () => {
     marketName: MARKET_NAME,
     orderType: 'TPSL',
     side: tpSlOrder.side,
-    amountOfSynthetic: position.size,
+    amountOfSynthetic: Decimal(0), // Ignored for position TP/SL
     price: Decimal(0), // Ignored for TPSL orders
     timeInForce: 'GTT',
     reduceOnly: true,

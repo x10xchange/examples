@@ -21,6 +21,7 @@ const OrderStatusSchema = z.enum([
   'REJECTED',
 ])
 const OrderTimeInForceSchema = z.enum(['GTT', 'IOC', 'FOK'])
+const TpSlTypeSchema = z.enum(['UNKNOWN', 'ORDER', 'POSITION'])
 
 const OrderConditionalTriggerSchema = z.object({
   triggerPrice: zodDecimal(),
@@ -44,8 +45,6 @@ const OrderTpSlTriggerSchema = z.object({
   starkExOrder: z.string().optional(),
   starkExSignature: z.string().optional(),
 })
-
-const TpSlTypeSchema = z.enum(['ORDER', 'TRIGGER'])
 
 const UserOrderSchema = z.object({
   id: zodLong(),

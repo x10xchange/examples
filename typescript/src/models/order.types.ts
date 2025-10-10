@@ -16,6 +16,7 @@ export type OrderContext = {
   settlementResolutionCollateral: Decimal
   settlementResolutionSynthetic: Decimal
   minOrderSizeChange: Decimal
+  maxPositionValue: Decimal
   feeRate: Decimal
   vaultId: Long
   starkPrivateKey: HexString
