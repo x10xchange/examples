@@ -1,17 +1,17 @@
-import { getAccounts } from './api/account-info.ts'
 import { getFees } from './api/fees.ts'
 import { getMarket } from './api/markets.ts'
 import { placeOrder } from './api/order.ts'
 import { getOrders } from './api/orders.ts'
-import { getPositions } from './api/positions.ts'
 import { getStarknetDomain } from './api/starknet.ts'
 import { init } from './init.ts'
 import { Order } from './models/order.ts'
 import { createOrderContext } from './utils/create-order-context.ts'
+import { invariant } from './utils/invariant.ts'
 import { Decimal } from './utils/number.ts'
 import { roundToMinChange } from './utils/round-to-min-change.ts'
 
-const MARKET_NAME = 'ETH-USD' // position market - replace with needed position market
+const MARKET_NAME = 'BTC-USD' // position market - replace with needed position market
+const ORDER_ID = '1976663382825091072' // replace with your order id
 
 const runExample = async () => {
   const { starkPrivateKey, vaultId } = await init()
@@ -20,15 +20,8 @@ const runExample = async () => {
   const fees = await getFees(MARKET_NAME)
   const starknetDomain = await getStarknetDomain()
 
-  const accounts = await getAccounts()
-  const accountId = accounts[0].accountId // specify your account id
-  const positions = await getPositions({
-    marketsNames: [MARKET_NAME],
-    accountId: accountId.toString(),
-  })
   const orders = await getOrders({
     marketsNames: [MARKET_NAME],
-    accountId: accountId.toString(),
   })
 
   const roundPrice = (value: Decimal) => {
@@ -39,16 +32,11 @@ const runExample = async () => {
     )
   }
 
-  const position = positions[0]
-  const positionOrders = orders.filter((order) => order.market === position.market)
-
-  const tpSlOrders = positionOrders.filter(
-    (order) => order.type === 'TPSL' && Boolean(order.tpSlType),
+  const tpSlOrder = orders.find(
+    (order) => order.type === 'TPSL' && Boolean(order.tpSlType) && order.id.eq(ORDER_ID),
   )
 
-  const orderId = tpSlOrders[0].id // replace with your tpsl order id
-
-  const tpSlOrder = tpSlOrders.find((order) => order.id.eq(orderId))
+  invariant(tpSlOrder, 'TPSL order not found for given market')
 
   const bidPrice = market.marketStats.bidPrice
   const tpTriggerPrice = bidPrice.times(1.01)
