@@ -10,7 +10,7 @@ import { invariant } from './utils/invariant.ts'
 import { Decimal } from './utils/number.ts'
 import { roundToMinChange } from './utils/round-to-min-change.ts'
 
-const MARKET_NAME = 'BTC-USD' // position market - replace with needed position market
+const MARKET_NAME = 'ETH-USD' // position market - replace with needed position market
 const ORDER_ID = '1976663382825091072' // replace with your order id
 
 const runExample = async () => {
