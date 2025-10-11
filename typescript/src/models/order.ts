@@ -1,5 +1,6 @@
 import { addHours } from 'date-fns'
 
+import { calcEntirePositionSize } from '../utils/calculation/calc-entire-position-size.ts'
 import { generateNonce } from '../utils/generate-nonce.ts'
 import { toHexString } from '../utils/hex.ts'
 import { Decimal, Long } from '../utils/number.ts'
@@ -158,7 +159,7 @@ export class Order {
     cancelId?: string
     ctx: OrderContext
   }) {
-    const { feeRate, vaultId } = ctx
+    const { feeRate, vaultId, minOrderSizeChange, maxPositionValue } = ctx
 
     const nonce = Long(generateNonce())
     const expiryEpochMillis = (
@@ -174,12 +175,20 @@ export class Order {
     }
 
     const tpSlSide = orderType !== 'TPSL' ? getOppositeOrderSide(side) : side
+    const tpAmountOfSynthetic =
+      takeProfit && tpSlType === 'POSITION'
+        ? calcEntirePositionSize(takeProfit.price, minOrderSizeChange, maxPositionValue)
+        : amountOfSynthetic
+    const slAmountOfSynthetic =
+      stopLoss && tpSlType === 'POSITION'
+        ? calcEntirePositionSize(stopLoss.price, minOrderSizeChange, maxPositionValue)
+        : amountOfSynthetic
     const createTpOrderParams = takeProfit
       ? Order.getCreateOrderParams({
           ...createOrderParamsArgs,
           side: tpSlSide,
           price: takeProfit.price,
-          amountOfSynthetic,
+          amountOfSynthetic: tpAmountOfSynthetic,
         })
       : undefined
     const createSlOrderParams = stopLoss
@@ -187,7 +196,7 @@ export class Order {
           ...createOrderParamsArgs,
           side: tpSlSide,
           price: stopLoss.price,
-          amountOfSynthetic,
+          amountOfSynthetic: slAmountOfSynthetic,
         })
       : undefined
 

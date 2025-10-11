@@ -14,6 +14,7 @@ const TradingConfigSchema = z.object({
   minOrderSize: zodDecimal(),
   minOrderSizeChange: zodDecimal(),
   minPriceChange: zodDecimal(),
+  maxPositionValue: zodDecimal(),
 })
 
 const L2ConfigSchema = z.object({

@@ -5,7 +5,7 @@ import { type Decimal, type Long } from '../utils/number.ts'
 export type OrderSide = 'BUY' | 'SELL'
 export type OrderType = 'LIMIT' | 'MARKET' | 'TPSL'
 export type OrderTimeInForce = 'GTT' | 'IOC'
-export type OrderTpSlType = 'ORDER'
+export type OrderTpSlType = 'ORDER' | 'POSITION'
 export type OrderTriggerPriceType = 'MARK' | 'INDEX' | 'LAST'
 export type OrderPriceType = 'LIMIT'
 
@@ -16,6 +16,7 @@ export type OrderContext = {
   settlementResolutionCollateral: Decimal
   settlementResolutionSynthetic: Decimal
   minOrderSizeChange: Decimal
+  maxPositionValue: Decimal
   feeRate: Decimal
   vaultId: Long
   starkPrivateKey: HexString
