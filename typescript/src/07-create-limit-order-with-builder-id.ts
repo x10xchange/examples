@@ -15,6 +15,8 @@ const BUILDER_ID: Long | undefined = undefined // Replace with your builder ID
 const runExample = async () => {
   const { starkPrivateKey, vaultId } = await init()
 
+  invariant(BUILDER_ID, 'Builder ID is required')
+
   const market = await getMarket(MARKET_NAME)
   const fees = await getFees({ marketName: MARKET_NAME, builderId: BUILDER_ID })
   const starknetDomain = await getStarknetDomain()
@@ -31,9 +33,6 @@ const runExample = async () => {
     builderId: BUILDER_ID,
     builderFee: fees.builderFeeRate,
   })
-
-  invariant(ctx.builderId, 'Builder ID is required')
-  invariant(ctx.builderFee, 'Builder fee is required')
 
   const order = Order.create({
     marketName: MARKET_NAME,
