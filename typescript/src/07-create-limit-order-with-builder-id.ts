@@ -5,21 +5,22 @@ import { getStarknetDomain } from './api/starknet.ts'
 import { init } from './init.ts'
 import { Order } from './models/order.ts'
 import { createOrderContext } from './utils/create-order-context.ts'
-import { Decimal } from './utils/number.ts'
+import { invariant } from './utils/invariant.ts'
+import { Decimal, Long } from './utils/number.ts'
 import { roundToMinChange } from './utils/round-to-min-change.ts'
 
 const MARKET_NAME = 'ETH-USD'
-const SLIPPAGE = 0.0075
+const BUILDER_ID: Long | undefined = undefined // Replace with your builder ID
 
 const runExample = async () => {
   const { starkPrivateKey, vaultId } = await init()
 
   const market = await getMarket(MARKET_NAME)
-  const fees = await getFees({ marketName: MARKET_NAME })
+  const fees = await getFees({ marketName: MARKET_NAME, builderId: BUILDER_ID })
   const starknetDomain = await getStarknetDomain()
 
   const orderSize = market.tradingConfig.minOrderSize
-  const orderPrice = market.marketStats.askPrice.times(1 + SLIPPAGE)
+  const orderPrice = market.marketStats.bidPrice.times(0.9)
 
   const ctx = createOrderContext({
     market,
@@ -27,10 +28,16 @@ const runExample = async () => {
     starknetDomain,
     vaultId,
     starkPrivateKey,
+    builderId: BUILDER_ID,
+    builderFee: fees.builderFeeRate,
   })
+
+  invariant(ctx.builderId, 'Builder ID is required')
+  invariant(ctx.builderFee, 'Builder fee is required')
+
   const order = Order.create({
     marketName: MARKET_NAME,
-    orderType: 'MARKET',
+    orderType: 'LIMIT',
     side: 'BUY',
     amountOfSynthetic: roundToMinChange(
       orderSize,
@@ -42,9 +49,9 @@ const runExample = async () => {
       market.tradingConfig.minPriceChange,
       Decimal.ROUND_DOWN,
     ),
-    timeInForce: 'IOC',
+    timeInForce: 'GTT',
     reduceOnly: false,
-    postOnly: false,
+    postOnly: true,
     ctx,
   })
 

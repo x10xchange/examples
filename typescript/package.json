@@ -13,6 +13,7 @@
     "example:04-create-partial-tpsl-order": "node ./src/04-create-partial-tpsl-order.ts",
     "example:05-sub-accounts-transfer": "node ./src/05-sub-accounts-transfer.ts",
     "example:06-update-untriggered-position-tpsl": "node ./src/06-update-untriggered-position-tpsl.ts",
+    "example:07-07-create-limit-order-with-builder-id": "node ./src/07-create-limit-order-with-builder-id.ts",
     "format": "prettier --config .prettierrc.mjs --write \"*.{js,ts}\" \"src/**/*.ts\"",
     "typecheck": "tsc",
     "lint": "eslint .",
