@@ -7,14 +7,16 @@ import { init } from './init.ts'
 import { Order } from './models/order.ts'
 import { createOrderContext } from './utils/create-order-context.ts'
 import { invariant } from './utils/invariant.ts'
-import { Decimal } from './utils/number.ts'
+import { Decimal, type Long } from './utils/number.ts'
 import { roundToMinChange } from './utils/round-to-min-change.ts'
 
 const MARKET_NAME = 'ETH-USD' // position market - replace with needed position market
-const ORDER_ID = '1976663382825091072' // replace with your order id
+const TPSL_ORDER_ID: Long | undefined = undefined // replace with your order id
 
 const runExample = async () => {
   const { starkPrivateKey, vaultId } = await init()
+
+  invariant(TPSL_ORDER_ID, 'Order ID is required')
 
   const market = await getMarket(MARKET_NAME)
   const fees = await getFees({ marketName: MARKET_NAME })
@@ -33,7 +35,8 @@ const runExample = async () => {
   }
 
   const tpSlOrder = orders.find(
-    (order) => order.type === 'TPSL' && Boolean(order.tpSlType) && order.id.eq(ORDER_ID),
+    (order) =>
+      order.type === 'TPSL' && Boolean(order.tpSlType) && order.id.eq(TPSL_ORDER_ID),
   )
 
   invariant(tpSlOrder, 'TPSL order not found for given market')
