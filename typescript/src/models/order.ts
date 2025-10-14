@@ -44,6 +44,8 @@ export class Order {
   private readonly takeProfit?: OrderTpSlTrigger
   private readonly stopLoss?: OrderTpSlTrigger
   private readonly cancelId?: string
+  private readonly builderId?: Long
+  private readonly builderFee?: Decimal
   private readonly debuggingAmounts?: OrderDebuggingAmounts
 
   private constructor({
@@ -64,6 +66,8 @@ export class Order {
     takeProfit,
     stopLoss,
     cancelId,
+    builderId,
+    builderFee,
     debuggingAmounts,
   }: {
     id: string
@@ -83,6 +87,8 @@ export class Order {
     takeProfit?: OrderTpSlTrigger
     stopLoss?: OrderTpSlTrigger
     cancelId?: string
+    builderId?: Long
+    builderFee?: Decimal
     debuggingAmounts?: OrderDebuggingAmounts
   }) {
     this.id = id
@@ -102,6 +108,8 @@ export class Order {
     this.takeProfit = takeProfit
     this.stopLoss = stopLoss
     this.cancelId = cancelId
+    this.builderId = builderId
+    this.builderFee = builderFee
     this.debuggingAmounts = debuggingAmounts
   }
 
@@ -124,6 +132,8 @@ export class Order {
       takeProfit: this.takeProfit?.toJSON(),
       stopLoss: this.stopLoss?.toJSON(),
       cancelId: this.cancelId,
+      builderId: this.builderId?.toString(10),
+      builderFee: this.builderFee?.toString(10),
       debuggingAmounts: this.debuggingAmounts?.toJSON(),
     })
   }
@@ -165,12 +175,14 @@ export class Order {
     const expiryEpochMillis = (
       expiryTime ?? addHours(new Date(), ORDER_EXPIRATION_HOURS)
     ).getTime()
+    const totalFeeRate = ctx.builderFee ? feeRate.plus(ctx.builderFee) : feeRate
     const createOrderParamsArgs = {
       side,
       amountOfSynthetic,
       price,
       expiryEpochMillis,
       nonce,
+      totalFeeRate,
       ctx,
     }
 
@@ -219,7 +231,7 @@ export class Order {
       price,
       timeInForce,
       expiryEpochMillis,
-      fee: feeRate,
+      fee: totalFeeRate,
       nonce,
       settlement,
       reduceOnly,
@@ -238,6 +250,8 @@ export class Order {
         createSlOrderParams?.debuggingAmounts,
       ),
       cancelId,
+      builderId: ctx.builderId,
+      builderFee: ctx.builderFee,
       debuggingAmounts: createOrderParams.debuggingAmounts,
     })
   }
@@ -248,6 +262,7 @@ export class Order {
     price,
     expiryEpochMillis,
     nonce,
+    totalFeeRate,
     ctx,
   }: {
     side: OrderSide
@@ -255,6 +270,7 @@ export class Order {
     price: Decimal
     expiryEpochMillis: number
     nonce: Long
+    totalFeeRate: Decimal
     ctx: OrderContext
   }) {
     const roundingMode = side === 'BUY' ? ROUNDING_MODE_BUY : ROUNDING_MODE_SELL
@@ -264,13 +280,12 @@ export class Order {
       assetIdSynthetic,
       settlementResolutionCollateral,
       settlementResolutionSynthetic,
-      feeRate,
       vaultId,
       starkPrivateKey,
     } = ctx
 
     const collateralAmount = amountOfSynthetic.times(price)
-    const fee = feeRate.times(collateralAmount)
+    const fee = totalFeeRate.times(collateralAmount)
 
     const collateralAmountStark = collateralAmount
       .times(settlementResolutionCollateral)

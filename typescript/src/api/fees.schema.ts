@@ -6,6 +6,7 @@ export const FeesSchema = z.object({
   market: z.string(),
   makerFeeRate: zodDecimal(),
   takerFeeRate: zodDecimal(),
+  builderFeeRate: zodDecimal(),
 })
 
 export const FeesResponseSchema = z.object({ data: z.array(FeesSchema) })

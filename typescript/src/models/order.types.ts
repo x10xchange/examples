@@ -21,4 +21,6 @@ export type OrderContext = {
   vaultId: Long
   starkPrivateKey: HexString
   starknetDomain: StarknetDomain
+  builderId?: Long
+  builderFee?: Decimal
 }

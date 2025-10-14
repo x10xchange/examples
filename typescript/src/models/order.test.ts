@@ -23,6 +23,8 @@ const CTX: OrderContext = {
     chainId: 'SN_SEPOLIA',
     revision: 1,
   },
+  builderId: Long(2001),
+  builderFee: Decimal('0.0012'),
 }
 
 beforeAll(() => {
@@ -68,14 +70,16 @@ test('creates `LIMIT / SELL` order correctly', () => {
   // when / then
   expect(order.toJSON()).toMatchInlineSnapshot(`
     {
+      "builderFee": "0.0012",
+      "builderId": "2001",
       "debuggingAmounts": {
         "collateralAmount": "43445116",
-        "feeAmount": "8690",
+        "feeAmount": "60824",
         "syntheticAmount": "10000000",
       },
       "expiryEpochMillis": 1704420536860,
-      "fee": "0.0002",
-      "id": "2383967786097470112596663671073451242363987635819842372002434200436463917248",
+      "fee": "0.0014",
+      "id": "1088023465382590833070844354772991406799121939245800917524942990980270111150",
       "market": "BTC-USD",
       "nonce": "1473459052",
       "postOnly": false,
@@ -85,8 +89,8 @@ test('creates `LIMIT / SELL` order correctly', () => {
       "settlement": {
         "collateralPosition": "10002",
         "signature": {
-          "r": "0x56b2fb685cc7feab021b54bc6a78521d76fb192faf6b12baa14ca1427b1b364",
-          "s": "0x282fbd86bbe48e02bffe3689a50985965287044937035dc7918f7dc9f0a6e74",
+          "r": "0x2a89b52eea807bc7e22f8eedf636f4b9f4ecd9c90da7973840e5ef77cb8255c",
+          "s": "0x6913f549d532336c26959190ffae3e92f1e92b436da4e6025226320fefc320f",
         },
         "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
       },
@@ -94,7 +98,7 @@ test('creates `LIMIT / SELL` order correctly', () => {
       "stopLoss": {
         "debuggingAmounts": {
           "collateralAmount": "39000000",
-          "feeAmount": "7800",
+          "feeAmount": "54600",
           "syntheticAmount": "10000000",
         },
         "price": "39000",
@@ -102,8 +106,8 @@ test('creates `LIMIT / SELL` order correctly', () => {
         "settlement": {
           "collateralPosition": "10002",
           "signature": {
-            "r": "0xb7603795727782806eaeddf0dbe1785346615e210bbf0316e78c556a10180a",
-            "s": "0x21d804a1e44f98813354d493eb3c0990d562c536a6ac44bfbff3bc1870035c6",
+            "r": "0x44ae74d3783ef3d099c15a78cb06cf2cb7a38ae7d257a7f861380dc18266e9b",
+            "s": "0x248e0bbce83f091d1db78005b06b427fe1c2816c36ca72c166fdbc61161a0bd",
           },
           "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
         },
@@ -113,7 +117,7 @@ test('creates `LIMIT / SELL` order correctly', () => {
       "takeProfit": {
         "debuggingAmounts": {
           "collateralAmount": "50000000",
-          "feeAmount": "10000",
+          "feeAmount": "70000",
           "syntheticAmount": "10000000",
         },
         "price": "50000",
@@ -121,8 +125,8 @@ test('creates `LIMIT / SELL` order correctly', () => {
         "settlement": {
           "collateralPosition": "10002",
           "signature": {
-            "r": "0x537060ce048e033ff2bc686c408c37296c134782140c287c14ad4ec8ca20e66",
-            "s": "0x3621e7f65eb14492d0343d3c40127bee870901a51ba4f12ce264d392da42f28",
+            "r": "0x7b9a3c5ad98aa3831662d107b97d4310334cef9def0a622c4233358b8215958",
+            "s": "0x5d3669a776a87840afedf83a5a20724157d1e8ad6dab176d7bdea898de5df50",
           },
           "starkKey": "0x2b8ee0cf95a353cb59fdae9afb54851769e750326e24cee9621ce33f08c02ed",
         },

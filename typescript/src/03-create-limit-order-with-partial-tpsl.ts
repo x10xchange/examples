@@ -14,7 +14,7 @@ const runExample = async () => {
   const { starkPrivateKey, vaultId } = await init()
 
   const market = await getMarket(MARKET_NAME)
-  const fees = await getFees(MARKET_NAME)
+  const fees = await getFees({ marketName: MARKET_NAME })
   const starknetDomain = await getStarknetDomain()
 
   const roundPrice = (value: Decimal) => {
