@@ -14,4 +14,4 @@ This repo contains Extended Exchange order signing and placement examples in var
 > Please review the code before using it in production.
 
 ### Go
-- https://github.com/skanger/extended-golang-
+- https://github.com/skanger/extended-golang-sdk
