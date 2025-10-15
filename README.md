@@ -10,7 +10,7 @@ This repo contains Extended Exchange order signing and placement examples in var
 ## Community-contributed examples / SDKs
 
 > [!CAUTION]
-> These are not official and are maintained by the community. Use at your own risk.
+> These are not official and maintained by the community. Use at your own risk.
 > Always review the code before running it!
 
 ### Go
