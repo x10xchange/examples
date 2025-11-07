@@ -231,7 +231,7 @@ export class Order {
       price,
       timeInForce,
       expiryEpochMillis,
-      fee: totalFeeRate,
+      fee: feeRate,
       nonce,
       settlement,
       reduceOnly,
