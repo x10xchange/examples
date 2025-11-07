@@ -5,12 +5,23 @@ use simple_logger::SimpleLogger;
 use starknet::core::types::Felt;
 use rust_crypto_lib_base::StarkSignature;
 
-mod sign_order;
-mod starkex_messages;
+mod pkg;
+use pkg::{sign_order,starkex_messages};
+use std::any::{Any, TypeId};
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     SimpleLogger::new().env().init().unwrap();
 
+    let client = reqwest::Client::new();
+    let response = client.get("https://api.starknet.extended.exchange/api/v1/info/markets")
+        .header("Accept", "application/json")
+        .header("User-Agent", "reqwest")
+        .send()
+        .await?
+        .error_for_status()?;
+
+    let my_data = response.text().await?;
     let order_hash = sign_order::sign_order_example();
 
     let ss = StarkSignature {
@@ -22,4 +33,6 @@ fn main() {
     println!("ss.r={}", ss.s.to_string());
 
     info!("order_hash = {}", order_hash);
+
+    Ok(())
 }
