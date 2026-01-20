@@ -16,8 +16,9 @@ This repo contains Extended Exchange order signing and placement examples in var
 ### Go
 - https://github.com/skanger/extended-golang-sdk
 
-### Typescript 
+### TypeScript
 - https://github.com/Bvvvp009/Extended-TS-SDK
 
-### RUST 
+### Rust
 - https://github.com/Bvvvp009/Extended-RUST-SDK
+- https://github.com/Ethics3606/extended-rust-sdk
