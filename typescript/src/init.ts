@@ -22,8 +22,6 @@ export const init = async () => {
   setHost(process.env.API_HOST)
   setApiKey(process.env.API_KEY)
 
-  // FIXME: print env info
-
   return {
     apiKey: process.env.API_KEY,
     starkPrivateKey: process.env.STARK_PRIVATE_KEY,
