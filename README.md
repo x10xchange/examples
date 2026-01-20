@@ -18,3 +18,6 @@ This repo contains Extended Exchange order signing and placement examples in var
 
 ### Typescript 
 - https://github.com/Bvvvp009/Extended-TS-SDK
+
+### RUST 
+- https://github.com/Bvvvp009/Extended-RUST-SDK
