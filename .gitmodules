@@ -1,0 +1,3 @@
+[submodule "rust/rust-crypto-lib-base"]
+	path = rust/rust-crypto-lib-base
+	url = git@github.com:x10xchange/rust-crypto-lib-base.git
